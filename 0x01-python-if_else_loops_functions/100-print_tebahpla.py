@@ -1,9 +1,3 @@
 #!/usr/bin/python3
-x = 25
-for c in range(122, 96, -1):
-    if c == 121:
-      print("Y", end="")
-    else:
-        print("{:c}".format(c + x), end="")
-    
-    x = x - 1 
+for ch in reversed(range(97, 123)):
+    print("{:c}".format(ch if (ch % 2 == 0) else (ch - 32)), end='')
