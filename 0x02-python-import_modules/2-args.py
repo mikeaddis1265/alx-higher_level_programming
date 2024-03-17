@@ -6,7 +6,7 @@ if length == 1:
     print("{:d} arguments.".format(length - 1))
 elif length == 2:
     print("{:d} argument:".format(1))
-    print("{:d}: {}".format(1, sys.argv[1]))
+    print("{:d}: {}".format(1, sysargv[1].))
 else:
     print("{:d} arguments:".format(length - 1))
     for i in range(1, length):

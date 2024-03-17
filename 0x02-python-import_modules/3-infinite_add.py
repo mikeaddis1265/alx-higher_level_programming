@@ -2,7 +2,10 @@
 if __name__ == "__main__":
     import sys
     result = 0
-    for arg in sys.argv:
-        if arg != sys.argv[0]:
-            result += int(arg)
-    print(result)
+    length = len(sys.argv)
+    if (length == 1):
+        print(result)
+    else:
+        for i in range(1, length):
+            result = result + int(sys.argv[i])
+        print(result)
