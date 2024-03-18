@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 def multiple_returns(sentence):
-    length = len(sentence)
-    if length == 0:
-        char = "None"
+    len_sen = len(sentence)
+
+    if (len_sen == 0):
+        new_tuple = (len_sen, None)
     else:
-        char = sentence[0]
-    return (length, char)
+        new_tuple = (len_sen, sentence[0])
+
+    return (new_tuple)
