@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 number_keys = __import__('5-number_keys').number_keys
 
 a_dictionary = { 'language': "C", 'number': 13, 'track': "Low level" }
