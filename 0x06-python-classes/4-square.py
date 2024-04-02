@@ -22,12 +22,16 @@ class Square:
             ares.
         """
         return (self.__size ** 2)
+
+    @property
     def size(self):
         """retrive the value of size
         Returns:
             size.
         """
         return (self.__size)
+
+    @size.setter
     def size(self, value):
         """set value of size"""
         if type(value) is not int:
