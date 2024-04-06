@@ -1,0 +1,9 @@
+#A test for 0-add-integer function
+>>>0-add_integer(2, 4)
+6
+>>>0-add_integer(3, -4)
+-1
+>>>0-add_integer(3, "mike")
+b must be an integer
+>>>0-add_integer("addis", 3)
+a must be an integer
