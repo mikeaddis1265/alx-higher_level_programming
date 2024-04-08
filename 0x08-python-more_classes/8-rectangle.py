@@ -6,6 +6,7 @@ class Rectangle:
     """class attribute"""
     number_of_instances = 0
     print_symbol = "#"
+
     """Initialization of an instance object"""
     def __init__(self, width=0, height=0):
         self.__width = width
@@ -14,8 +15,8 @@ class Rectangle:
 
     """delete an obj instance"""
     def __del__(self):
-        print("Bye rectangle...")
         Rectangle.number_of_instances -= 1
+        print("Bye rectangle...")
 
     @property
     def height(self):
