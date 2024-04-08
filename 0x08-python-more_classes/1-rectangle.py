@@ -1,24 +1,19 @@
 #!/usr/bin/python3
-"""Real definition of a reactangle"""
+"""Real definition of a rectangle"""
 
 
 class Rectangle:
 
-    """initialization of an instance object"""
+    """Initialization of an instance object"""
     def __init__(self, width=0, height=0):
-        self.__width = width
-        self.__height = height
-
+        self.width = width
+        self.height = height
 
     @property
     def height(self):
-        """return the size
-        Returns:
-            height
-        """
-        return (self.__height)
+        """Return the size"""
+        return self.__height
 
-    """setter and getter functions"""
     @height.setter
     def height(self, value):
         if not isinstance(value, int):
@@ -29,11 +24,8 @@ class Rectangle:
 
     @property
     def width(self):
-        """return the size
-        Returns:
-            width
-        """
-        return (self.__height)
+        """Return the size"""
+        return self.__width
 
     @width.setter
     def width(self, value):
@@ -42,3 +34,11 @@ class Rectangle:
         if value < 0:
             raise ValueError("width must be >= 0")
         self.__width = value
+
+if __name__ == "__main__":
+    my_rectangle = Rectangle(2, 4)
+    print(my_rectangle.__dict__)
+
+    my_rectangle.width = 10
+    my_rectangle.height = 3
+    print(my_rectangle.__dict__)
