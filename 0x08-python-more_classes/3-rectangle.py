@@ -44,3 +44,12 @@ class Rectangle:
         if self.__width is 0 or self.__height is 0:
             return 0
         return (2 * (self.__height + self.__width))
+    
+    def __str__(self):
+        """ return the rectangle with the character #
+        """
+        if self.__width is 0 or self.__height is 0:
+            return ""
+        return ("\n".join(["".join(["#" for i in range(self.__width)])
+                for j in range(self.__height)]))
+
