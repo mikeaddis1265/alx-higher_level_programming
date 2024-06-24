@@ -1,0 +1,13 @@
+object literal - when obj created and initialize it at same time
+        >used to transfer a series of structured related data itmes in some manner
+        >but individual items need to be identified by name use array
+        >Objects as obj properites - use chanined dots to acces the inner element
+        >dot and bracket notation to access obj properties
+    >constructors-
+Inheritance and prototype chain-
+    >each obj has an internal link to another obj called prototype
+    >prototype obj has a prototype of its own unitl an obj reached with null
+> const me = {}; and const me = new object(); are basically same thing
+>__proto__ and prototype are same but access in diffrence end
+>property shadowing
+
