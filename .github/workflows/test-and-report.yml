@@ -62,8 +62,8 @@ jobs:
             -d '{
               "title": "ALX Test Failure in ${{ github.repository }}",
               "description": "Tests failed in commit ${{ github.sha }}\n\nTest Results:\n$TEST_RESULTS\n\nStyle Issues:\n$STYLE_RESULTS",
-              "projectId": "ALX_HIGHER_LEVEL",
-              "reporterId": "SYSTEM",
+              "projectId": "clm9x9t0sm001ytl24astflmp2",
+              "reporterId": "clm9x9sxo000kytl24j0kp5qv",
               "priority": "HIGH",
               "severity": "MAJOR",
               "status": "OPEN",
