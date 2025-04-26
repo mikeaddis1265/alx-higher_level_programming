@@ -1,28 +1,50 @@
-name: CI
+const fs = require('fs');
+const fetch = require('node-fetch');
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+const [,, projectId, commit, apiUrl] = process.argv;
+if (!projectId || !commit || !apiUrl) {
+  console.error('Usage: node parse-and-report-failures.js <projectId> <commit> <apiUrl>');
+  process.exit(1);
+}
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-      - run: npm install
-      - name: Run tests and capture output
-        run: |
-          npm test > test-output.txt || true
-      - name: Report test failures to Bug Tracker
-        if: failure()
-        run: |
-          node ./scripts/parse-and-report-failures.js \
-            "YOUR_PROJECT_ID" \
-            "${{ github.sha }}" \
-            "http://localhost:3000/api/ci-report"
+const testOutput = fs.readFileSync('test-output.txt', 'utf8');
+const lines = testOutput.split('\n');
+const failures = [];
+
+// Simple regex for Jest/Mocha style failures (customize for your framework)
+let currentTest = null;
+let currentError = '';
+for (const line of lines) {
+  if (/^\s*✕|FAIL|●/.test(line)) {
+    if (currentTest && currentError) {
+      failures.push({ testName: currentTest, error: currentError.trim() });
+    }
+    currentTest = line.trim();
+    currentError = '';
+  } else if (currentTest) {
+    currentError += line + '\n';
+  }
+}
+if (currentTest && currentError) {
+  failures.push({ testName: currentTest, error: currentError.trim() });
+}
+
+if (failures.length === 0) {
+  console.log('No test failures found.');
+  process.exit(0);
+}
+
+fetch(apiUrl, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ projectId, commit, failures })
+})
+  .then(res => res.json())
+  .then(data => {
+    console.log('Reported failures:', data);
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error('Failed to report failures:', err);
+    process.exit(1);
+  });
