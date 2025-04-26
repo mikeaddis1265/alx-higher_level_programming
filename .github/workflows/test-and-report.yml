@@ -33,7 +33,7 @@ jobs:
             if [ -d "$dir" ]; then
               echo "Testing $dir"
               cd "$dir"
-              pytest --cov=. --cov-report=xml || true
+              pytest --cov=. --cov-report=xml
               pycodestyle *.py || true
               cd ..
             fi
