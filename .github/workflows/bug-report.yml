@@ -1,0 +1,46 @@
+name: Run Tests and Report Bugs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov pycodestyle requests
+
+      - name: Run tests and report bugs
+        run: |
+          # Make the script executable
+          chmod +x scripts/report_bug.py
+
+          # Run the intentionally failing test with bug reporting
+          # to demonstrate that the bug reporting system works
+          python test_and_report.py
+
+          # For each Python project directory, run tests and report bugs if they fail
+          for dir in 0x*/; do
+            if [ -d "$dir" ]; then
+              echo "Testing $dir"
+              python scripts/report_bug.py --dir "$dir" --repo "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA"
+            fi
+          done
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_SHA: ${{ github.sha }}
