@@ -1,3 +1,3 @@
 #!/usr/bin/python3
-print("mike school")
+print("Hello Mike!")
 
