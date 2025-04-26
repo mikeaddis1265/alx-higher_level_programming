@@ -1,2 +1,5 @@
 def test_force_fail():
-    assert False, "This test is designed to always fail and trigger bug creation - updated" 
+    """Test that will fail to demonstrate automated bug reporting."""
+    expected = "Hello, World!"
+    actual = "Goodbye, World!"
+    assert expected == actual, f"Expected '{expected}' but got '{actual}' - Testing automated bug reporting" 
