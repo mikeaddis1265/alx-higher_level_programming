@@ -1,7 +1,7 @@
 import pytest
 import sys
 import os
-import importlib
+import subprocess
 from io import StringIO
 from contextlib import redirect_stdout
 
@@ -19,13 +19,19 @@ def test_hello_world_output():
     """Test that the hello world script prints the correct output"""
     expected_output = "Hello, World!\n"
     
-    # Capture stdout
-    with StringIO() as buf, redirect_stdout(buf):
-        # Import and run the module
-        importlib.reload(hello_world)
-        output = buf.getvalue()
+    # Get the path to the hello world script
+    script_path = os.path.join(os.path.dirname(__file__), "0-hello_world.py")
     
-    assert output == expected_output, f"Expected '{expected_output}', got '{output}'"
+    # Run the script and capture its output
+    result = subprocess.run(
+        [sys.executable, script_path],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.stdout == expected_output, f"Expected '{expected_output}', got '{result.stdout}'"
+    assert result.stderr == "", f"Expected no stderr, got '{result.stderr}'"
+    assert result.returncode == 0, f"Expected return code 0, got {result.returncode}"
 
 @pytest.mark.alx
 @pytest.mark.mandatory

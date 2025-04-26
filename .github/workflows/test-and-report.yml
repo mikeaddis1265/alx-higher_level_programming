@@ -40,7 +40,7 @@ jobs:
           done
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
@@ -58,6 +58,7 @@ jobs:
           # Create bug report
           curl -X POST "http://localhost:3000/api/bugs" \
             -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.BUG_SYSTEM_TOKEN }}" \
             -d '{
               "title": "ALX Test Failure in ${{ github.repository }}",
               "description": "Tests failed in commit ${{ github.sha }}\n\nTest Results:\n$TEST_RESULTS\n\nStyle Issues:\n$STYLE_RESULTS",
@@ -71,8 +72,10 @@ jobs:
                 "commit": "${{ github.sha }}",
                 "branch": "${{ github.ref }}",
                 "workflow": "${{ github.workflow }}",
-                "run_id": "${{ github.run_id }}"
+                "run_id": "${{ github.run_id }}",
+                "repo": "${{ github.repository }}"
               }
             }'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUG_SYSTEM_TOKEN: ${{ secrets.BUG_SYSTEM_TOKEN }}
