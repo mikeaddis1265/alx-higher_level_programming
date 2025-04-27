@@ -56,7 +56,7 @@ jobs:
           STYLE_RESULTS=$(pycodestyle *.py || true)
 
           # Create bug report
-          curl -X POST "https://ba58-102-218-51-176.ngrok-free.app/api/bugs" \
+          curl -X POST "http://localhost:3000/api/bugs" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.BUG_SYSTEM_TOKEN }}" \
             -d '{
